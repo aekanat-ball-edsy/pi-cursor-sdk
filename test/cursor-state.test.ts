@@ -727,10 +727,10 @@ describe("Cursor runtime state", () => {
 
 			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("PI_CURSOR_PI_TOOL_BRIDGE: enabled"), "info");
 			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("PI_CURSOR_SETTING_SOURCES: none (effective: none)"), "info");
-			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("Callable tool surfaces this run:"), "info");
+			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("Callable tool surfaces this run (pi-first):"), "info");
 			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("pi__custom_bridge_tool"), "info");
-			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("Cursor host/MCP"), "info");
-			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("Pi tool toggles affect pi tools/bridge exposure only"), "info");
+			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("Cursor host:"), "info");
+			expect(ctx.ui.notify).toHaveBeenCalledWith(expect.stringContaining("pi tool toggles control bridge exposure"), "info");
 		} finally {
 			if (originalBridgeEnv === undefined) delete process.env.PI_CURSOR_PI_TOOL_BRIDGE;
 			else process.env.PI_CURSOR_PI_TOOL_BRIDGE = originalBridgeEnv;
@@ -748,7 +748,7 @@ describe("Cursor runtime state", () => {
 		expect(report).toContain("PI_CURSOR_PI_TOOL_BRIDGE: disabled");
 		expect(report).toContain("Pi bridge: disabled (PI_CURSOR_PI_TOOL_BRIDGE=0).");
 		expect(report).toContain("PI_CURSOR_SETTING_SOURCES: project (effective: project)");
-		expect(report).toContain("Callable tool surfaces this run:");
+		expect(report).toContain("Callable tool surfaces this run (pi-first):");
 	});
 
 	it("formatCursorToolsDebugReport notes disabled manifest", () => {
@@ -796,7 +796,7 @@ describe("Cursor runtime state", () => {
 			await pi.runCommand("cursor-tools", "", { hasUI: false });
 
 			expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("Cursor tool surfaces (current session):"));
-			expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("Callable tool surfaces this run:"));
+			expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("Callable tool surfaces this run (pi-first):"));
 		} finally {
 			consoleSpy.mockRestore();
 		}

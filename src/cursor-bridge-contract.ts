@@ -1,6 +1,6 @@
 export const CURSOR_PI_BRIDGE_MCP_TOOL_PREFIX = "pi__";
 export const CURSOR_PI_BRIDGE_PREFERENCE_TEXT =
-	"When exposed, prefer pi__mcp for MCP work and pi__subagent for delegation; use Cursor-configured MCP or Cursor-native subagents only when the matching pi__ tool is not exposed or unavailable.";
+	"Default to pi assets: pi MCP via pi__codemode (mcp__<server>__<tool> from ~/.pi/agent/mcp.json), pi skills, and other exposed pi__* bridge tools. Do not use Cursor plugin MCP, Cursor mcp-auth/Web API shell fallbacks, or Cursor-native subagents until you stop and the user explicitly approves (pi__cursor_ask_question when exposed).";
 
 const CURSOR_PI_BRIDGE_CONTRACT_LINES = [
 	"Pi bridge contract:",

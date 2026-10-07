@@ -25,9 +25,10 @@ export function buildCursorToolManifestText(options: {
 	const piBridgeEnabled = options.piBridgeEnabled ?? true;
 	const includePiBridgeGuidance = options.includePiBridgeGuidance !== false;
 	const lines = [
-		"Callable tool surfaces this run:",
-		`- Cursor host/MCP: ${CURSOR_HOST_TOOL_MANIFEST_SUMMARY}; configured MCP depends on Cursor settings.`,
-		"- Pi tool toggles affect pi tools/bridge exposure only; they do not disable Cursor host/configured MCP tools.",
+		"Callable tool surfaces this run (pi-first):",
+		"- Pi (preferred): pi MCP via pi__codemode (mcp__<server>__<tool>), pi skills, and exposed pi__* bridge tools; pi tool toggles control bridge exposure.",
+		`- Cursor host: ${CURSOR_HOST_TOOL_MANIFEST_SUMMARY} for repo/files/shell when needed.`,
+		"- Cursor plugin MCP / subagents: do not use unless the user explicitly approved after you stopped and asked.",
 	];
 	const bridgeTools = includePiBridgeGuidance ? options.bridgeSnapshot?.tools ?? [] : [];
 	if (includePiBridgeGuidance) {

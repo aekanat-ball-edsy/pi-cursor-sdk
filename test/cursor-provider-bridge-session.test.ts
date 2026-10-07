@@ -159,10 +159,10 @@ describe("streamCursor session agent", () => {
 		const secondPrompt = mockSend.mock.calls[1]?.[0] as { text?: string };
 		expect(firstPrompt.text).toContain("Cursor SDK tool boundary:");
 		expect(firstPrompt.text).toContain("User: Hello");
-		expect(firstPrompt.text).toContain("prefer pi__mcp for MCP work and pi__subagent for delegation");
+		expect(firstPrompt.text).toContain("Default to pi assets");
 		expect(secondPrompt.text).toContain("User: Follow up");
 		expect(secondPrompt.text).not.toContain("User: Hello");
-		expect(secondPrompt.text).toContain("prefer pi__mcp for MCP work and pi__subagent for delegation");
+		expect(secondPrompt.text).toContain("Default to pi assets");
 	});
 
 	it("recreates the session agent after session-tree invalidation", async () => {
@@ -443,8 +443,8 @@ describe("streamCursor session agent", () => {
 		await collectEvents(streamCursor(makeModel(), makeContext(), { apiKey: "test-key" }));
 
 		const firstPrompt = mockSend.mock.calls[0]?.[0] as { text?: string };
-		expect(firstPrompt.text).toContain("Callable tool surfaces this run:");
-		expect(firstPrompt.text).toContain("Cursor host/MCP");
+		expect(firstPrompt.text).toContain("Callable tool surfaces this run (pi-first):");
+   expect(firstPrompt.text).toContain("Cursor host:");
 		expect(firstPrompt.text).not.toContain("pi__cursor_ask_question");
 	});
 });

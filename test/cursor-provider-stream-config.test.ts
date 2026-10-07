@@ -501,12 +501,12 @@ describe("streamCursor prompt and model config", () => {
 		const sentMessage = mockSend.mock.calls[0]?.[0] as { text: string };
 		expect(sentMessage.text).toContain("Cursor SDK tool boundary:");
 		expect(sentMessage.text).toContain("Call only Cursor SDK/MCP tools exposed in this run");
-		expect(sentMessage.text).toContain("Callable tool surfaces this run:");
-		expect(sentMessage.text).toContain("Cursor host/MCP");
+		expect(sentMessage.text).toContain("Callable tool surfaces this run (pi-first):");
+		expect(sentMessage.text).toContain("Cursor host:");
 		expect(sentMessage.text).not.toContain("Bridged pi tools:");
 		expect(sentMessage.text).not.toContain("Pi bridge");
 		expect(sentMessage.text).not.toContain("Use pi__cursor_ask_question");
-		expect(sentMessage.text).not.toContain("prefer pi__mcp");
+		expect(sentMessage.text).not.toContain("Default to pi assets");
 	});
 
 	it("keeps pi bridge prompt guidance when the actual bridge exposes tools even if context tools are empty", async () => {
@@ -543,7 +543,7 @@ describe("streamCursor prompt and model config", () => {
 		expect(sentMessage.text).toContain("For exposed pi bridge tools");
 		expect(sentMessage.text).not.toContain("Use pi__cursor_ask_question");
 		expect(sentMessage.text).toContain("Pi bridge: call exposed pi__* MCP names");
-		expect(sentMessage.text).toContain("prefer pi__mcp for MCP work and pi__subagent for delegation");
+		expect(sentMessage.text).toContain("Default to pi assets");
 		expect(sentMessage.text).toContain("pi__sem_reindex");
 	});
 
