@@ -166,8 +166,8 @@ describe("installed Pi provider context boundary", () => {
 		const text = sdkSend.mock.calls[0][0].text;
 		expect(text).toContain("pi__audit_tool");
 		expect(text).not.toContain("pi__read");
-		expect(text).not.toContain("pi__cursor");
 		expect(text).not.toContain("pi__inactive");
+		expect(text).not.toMatch(/pi__cursor[^_a-z]/);
 	});
 
 	it("reboots when the current tool declaration changes", async () => {

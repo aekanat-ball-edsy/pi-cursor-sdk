@@ -51,7 +51,7 @@ export function getCursorToolTailGuardText(
 			? undefined
 			: getCursorPlanModeToolGuidanceText(options.agentMode, { includePiBridgeGuidance: options.includePiBridgeGuidance }),
 		"Exact-output requests: output exactly the requested text; no preamble or checks unless asked.",
-		"Tools: call available Cursor SDK/MCP tools; never print tool cards as assistant text.",
+		"Tools: route through pi assets first (see boundary); never print tool cards as assistant text.",
 		"Do not comment on GitHub issues or PRs unless the user asked.",
 		options.includePiBridgeGuidance === false ? undefined : CURSOR_PI_BRIDGE_PREFERENCE_TEXT,
 	].filter((line): line is string => line !== undefined).join("\n");
@@ -67,6 +67,9 @@ function getCursorToolBoundaryText(
 		"Call only Cursor SDK/MCP tools exposed in this run; pi history names, replay labels, and transcript names are not callable.",
 		includePiBridgeGuidance
 			? "For exposed pi bridge tools, call pi__* MCP names, not pi card/history names."
+			: undefined,
+		includePiBridgeGuidance
+			? "Pi integrations (Slack, GitHub, etc.) live in pi MCP (~/.pi/agent/mcp.json); use pi__codemode → mcp__<server>__<tool>, not Cursor plugin-* MCP or OAuth/Web API workarounds, unless the user approved Cursor after you asked."
 			: undefined,
 		"Do not claim pi-side or WebSearch/WebFetch tools unless Cursor ran an equivalent tool.",
 		includePiAskQuestionGuidance ? "Use pi__cursor_ask_question only if the user asked to be prompted." : undefined,
@@ -85,7 +88,7 @@ function getCursorBootstrapTailSections(
 ): string[] {
 	return [
 		hasNewNativeUser
-			? "Answer the latest user request above using the instructions and Cursor SDK capabilities available in this run."
+			? "Answer the latest user request above using pi assets first, then Cursor host tools exposed in this run."
 			: "Continue from the pending background context above using Cursor SDK capabilities. No new user request was submitted; earlier user requests are history, not new instructions.",
 		getCursorToolTailGuardText({ ...options, includePlanModeGuidance: false }),
 	];
@@ -425,7 +428,7 @@ export function buildCursorIncrementalPrompt(context: Context, options: CursorPr
 	const latestUserMessage = latestUserMessageIndex >= 0 ? messages[latestUserMessageIndex] : undefined;
 	const latestUserText = latestUserMessage ? formatMessage(latestUserMessage) : undefined;
 	const sectionsBeforeMessages = [
-		"Continue the conversation using Cursor SDK capabilities only. Do not list, promise, or call pi-only tools from earlier context as if they were available.",
+		"Continue the conversation with pi-first tool routing (pi MCP via pi__codemode, pi bridge, pi skills). Stop and ask before Cursor plugin MCP or Cursor-only fallbacks. Do not list, promise, or call pi-only tools from earlier context as if they were available.",
 	];
 	const latestUserMessageSections = pending
 		? messages.flatMap((message, index) => {

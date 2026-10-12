@@ -25,9 +25,9 @@ describe("cursor-tool-manifest", () => {
 			},
 		});
 
-		expect(text).toContain("Callable tool surfaces this run:");
-		expect(text).toContain("Cursor host/MCP");
-		expect(text).toContain("Pi tool toggles affect pi tools/bridge exposure only");
+		expect(text).toContain("Callable tool surfaces this run (pi-first):");
+		expect(text).toContain("Cursor host:");
+		expect(text).toContain("Pi (preferred):");
 		expect(text).toContain("pi__cursor_ask_question");
 		expect(text).toContain("cursor-replay-*");
 	});
@@ -51,9 +51,9 @@ describe("cursor-tool-manifest", () => {
 			},
 		});
 
-		expect(text).toContain("Callable tool surfaces this run:");
-		expect(text).toContain("Cursor host/MCP");
-		expect(text).toContain("configured MCP depends on Cursor settings");
+		expect(text).toContain("Callable tool surfaces this run (pi-first):");
+		expect(text).toContain("Cursor host:");
+		expect(text).toContain("Cursor plugin MCP / subagents");
 		expect(text).not.toContain("Pi bridge");
 		expect(text).not.toContain("pi__cursor_ask_question");
 	});
@@ -82,7 +82,7 @@ describe("cursor-tool-manifest", () => {
 			{ messages: [{ role: "user", content: "hi", timestamp: 1 }] },
 			{ toolManifest: manifest },
 		);
-		expect(prompt.text).toContain("Callable tool surfaces this run:");
+		expect(prompt.text).toContain("Callable tool surfaces this run (pi-first):");
 		expect(prompt.text).toContain("Cursor SDK tool boundary:");
 		expect(prompt.text).toContain("See callable surfaces below.");
 	});

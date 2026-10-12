@@ -50,7 +50,7 @@ describe("custom subagent config to ordinary provider turns", () => {
 				] },
 			} });
 			expect(mockedCreate.mock.calls[0][0].model).toEqual({ id: "fixture", params: [{ id: "fast", value: "true" }, { id: "reasoning", value: "none" }] });
-			expect(send.mock.calls[0][0].text).toContain("prefer pi__mcp for MCP work and pi__subagent for delegation");
+			expect(send.mock.calls[0][0].text).toContain("Default to pi assets");
 			expect(send.mock.calls[0][0].text).not.toContain("private child instructions");
 			const divergent = { ...makeContext(), systemPrompt: "Updated parent context" };
 			await collectEvents(streamCursor(makeModel("fixture:fast"), divergent, { apiKey: "test-key" }));
