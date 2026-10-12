@@ -15,12 +15,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fitchmultz/pi-cursor-sdk.git"
+    "url": "git+https://github.com/aekanat-ball-edsy/pi-cursor-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/fitchmultz/pi-cursor-sdk/issues"
+    "url": "https://github.com/aekanat-ball-edsy/pi-cursor-sdk/issues"
   },
-  "homepage": "https://github.com/fitchmultz/pi-cursor-sdk#readme",
+  "homepage": "https://github.com/aekanat-ball-edsy/pi-cursor-sdk#readme",
   "files": [
     "dist",
     "shared",
